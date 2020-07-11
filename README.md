@@ -1,4 +1,4 @@
-# Variance-stabilized-units-for-sequencing-based-genomic-signals
+# Variance-stabilized units for sequencing-based genomic signals
 # S3V2_IDEAS_ESMP
 
 ## In the pipeline, it can first normalize average read counts signal by S3norm ver2 and then use IDEAS to either to do genome segmentations or to call master peaks list across multiple datasets. This pipeline will use bigWig file as input files. 
