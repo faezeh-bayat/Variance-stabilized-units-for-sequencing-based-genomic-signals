@@ -37,14 +37,9 @@ git clone https://github.com/guanjue/S3V2_IDEAS_ESMP.git
 
 ```
 variance_stabilization_model="user_specified"
-    # If user has specified the "user_specified" option for building the model, they should provide two replicate signal files.
-    # bigWig, bedGraph and bam files are accepted for the provided signals.
 replicate1_signals_for_training_the_model="rep1.bedGraph"
 replicate2_signals_for_training_the_model="rep2.bedGraph"
 chromosomes_to_build_the_model="chr21"
-
-    # After the model is build, user may provide the signals they want to stabilize the variance. Same as building model procedure,
-    # bigWig, bedGraph and bam files are accepted for the provided signals
 signals_to_be_variance_stabilized="rep1.bedGraph"
 chromosomes_to_be_stabilized="chr21"
 ```
