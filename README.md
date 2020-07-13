@@ -107,7 +107,7 @@ chmode +x VSS.sh
 #### 3. Variance-stabilized signals will be saved in the output folder at user provided "$input_directory".
 
 
-###########################################################################################################
+##################################################################################################
 
 #### You can accesee the "Variance-stabilized units for sequencing-based genomic signals" manuscript in:
 https://www.biorxiv.org/content/10.1101/2020.01.31.929174v1.full
