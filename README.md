@@ -59,83 +59,52 @@ chromA  chromStartA  chromEndA  dataValueA
 chromB  chromStartB  chromEndB  dataValueB
 ```
 
+## Output of VSS pipeline
+#### VSS generates variance-stabilized signals. The output of the pipeline is a bedGraph format transformed signal.
 
-
-##### It only needs one input metadata file which tells the pipeline where are input 
-files. An example of the metadata is in the "metadata.for_master_peak_calls.txt" file with 4 columns (columns are separated by tab):
-##### 1st column: cell type name (!!!The cell type name should not have "." in it!!!)
-##### 2nd column: epigenetic feature
-##### 3rd column: cell type id
-##### 4th column: absolute path to the IP bigwig files
-##### 5th column: absolute path to the CONTROL bigwig files (If there is no control signal track, this column can be leave as empty)
+## How to run VSS pipeline
+#### 1. Provide inputs in VSS.sh
 ```
->>> head metadata.for_master_peak_calls.txt
-Cell1	ATAC	01	/storage/home/gzx103/scratch/S3V2norm_compare/hg38_cCREs/bw/c10_chr16_read.ATAC.bw
-Cell1	H3K4me3	01	/storage/home/gzx103/scratch/S3V2norm_compare/hg38_EP/bw/c11_chr16_read.H3K4me3.bw
-Cell2	ATAC	02	/storage/home/gzx103/scratch/S3V2norm_compare/hg38_cCREs/bw/c11_chr16_read.ATAC.bw
-Cell2	H3K4me3	02	/storage/home/gzx103/scratch/S3V2norm_compare/hg38_EP/bw/c11_chr16_read.H3K4me3.bw
-```
+### path to the input files
+input_directory="/absolute_path_of_the_users_input_files"
+### Indicate whether you want to build your own model("user_specified") or use the default model ("default")  
+variance_stabilization_model="user_specified" or "default"
+### Two input replicates for building the mean-varaince relationship model
+replicate1_signals_for_training_the_model="rep1.bedGraph" or "False" if the variance_stabilization_model is "default"
+replicate2_signals_for_training_the_model="rep2.bedGraph" or "False" if the variance_stabilization_model is "default"
+### Indicate which chromosomes you want to build the model on 
+chromosomes_to_build_the_model="chr21" or "False" if the variance_stabilization_model is "default". Chromosomes can also be in "all" format if user wants to build model for all chromosomes.
+###
+signals_to_be_variance_stabilized="rep1.bedGraph"
+### Indicate which chromosome of untransformed signals you want to transform
+chromosomes_to_be_stabilized="chr21" ###Chromosomes can also be in "all" format if user wants to get all chromosomes' variance-stabilized signals
+###
+Source_directory="/absolute_path_where_VSS_is_installed"
 
-#####################################################################################
+module load r
+module load r/3.4.4
+module load bedtools/2.27.1
 
-## How to run S3V2_IDEAS_ESMP pipeline
-#### Use 'run_S3V2_IDEAS_ESMP.sh' to run S3norm pipeline.
-##### After perparing the input data, user just need to set the parameters in "run_S3V2_IDEAS_ESMP.sh" to run S3V2_IDEAS_ESMP.
-#####
-```
-### required inputs
-###### the absolute path to the bin folder
-script_dir='/storage/home/gzx103/group/software/S3V2_IDEAS_ESMP/bin/'
-###### your output folder
-output_dir='/storage/home/gzx103/scratch/S3V2norm_compare/S3V2_cCRE_pipeline_test/'
-###### the absolute path to the your modified "metadata.for_master_peak_calls.txt" file
-metadata='/storage/home/gzx103/scratch/S3V2norm_compare/S3V2_cCRE_pipeline_test/input_files/metadata.for_master_peak_calls.txt'
-###### The output name
-id_name='test_S3V2_IDEAS_ESMP_pipeline'
-
-
-###### genome
-GENOME='hg38'
-###### genome size (can be found in the "S3V2_IDEAS_ESMP/genomesize/" folder)
-GENOMESIZES='/storage/home/gzx103/group/software/S3V2_IDEAS_ESMP/genomesize/hg38.chrom.chr16.fortest.sizes'
-###### blacklist (can be found in the "S3V2_IDEAS_ESMP/blacklist/" folder)
-BLACK='/storage/home/gzx103/group/software/S3V2_IDEAS_ESMP/blacklist/hg38-blacklist.v2.bed'
-
-###### number of threads in system
-threads=4
-###### bin size of the signal resolution
-bin_size=200
-###### email address
-email='your_email@xxx.edu'
-
-
-###### This one needs to be set to "T" for the first time of running the pipeline. 
-get_sigtrack='T'
-###### This one needs to be set to "T" for the first time of running the pipeline. 
-normalization='T'
-###### if user only want to get the S3V2 normalized bigwig files, set this to "T"
-get_bw='T'
-###### if user only want to run S3norm version2 without downstream epigenetic state call of hypersensitive state call, then this can be set to "F"
-run_ideas='T'
+cd "$Source_directory"
+cd "Source"
+Rscript VSS.R $input_directory \
+                $variance_stabilization_model \
+                $replicate1_signals_for_training_the_model \
+                $replicate2_signals_for_training_the_model \
+                $chromosomes_to_build_the_model \
+                $signals_to_be_variance_stabilized \
+                $chromosomes_to_be_stabilized \
+                $Source_directory
 
 ```
+#### 2. Run VSS.sh
 
-##### Then Run:
 ```
-time bash run_S3V2_IDEAS_ESMP.sh
-```
+chmode +x VSS.sh
+./VSS.sh
 
-#####################################################################################
+```
+#### 3. Variance-stabilized signals will be saved in the output folder at user provided "$input_directory".
 
-## Outputs of S3V2_IDEAS_ESMP
-### All outputs will be saved in the user provided "$output_dir".
-##### The epigenetic state genome segmentation (multiple epigenetic features) and master peak list (one epigenetic feature) will be saved in the following folder: "your_output_name_IDEAS_output/"
-```
-ls -ltrh test_S3V2_IDEAS_ESMP_pipeline_IDEAS_output/
-```
-##### The S3norm normalized average read counts will be save in the "test_S3V2_IDEAS_cCRE_pipeline_bws_RC" folder
-##### The -log10(p-value) based on S3norm normalized average read counts will be save in the "test_S3V2_IDEAS_cCRE_pipeline_bws_NBP" folder
-##### The signal composition of the epigenetic state will be the "test_S3V2_IDEAS_cCRE_pipeline.pdf"
-##### The genome segmentation will be saved in "test_S3V2_IDEAS_ESMP_pipeline_IDEAS_output/Tracks/" folder
-##### If there is one epigenetic feature, a master peak list will be saved as the "test_S3V2_IDEAS_ESMP_pipeline.cCRE.M.bed" file
+
 
