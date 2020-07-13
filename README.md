@@ -1,7 +1,7 @@
 # Variance-stabilized units for sequencing-based genomic signals
-# S3V2_IDEAS_ESMP
 
-## In the pipeline, it can first normalize average read counts signal by S3norm ver2 and then use IDEAS to either to do genome segmentations or to call master peaks list across multiple datasets. This pipeline will use bigWig file as input files. 
+## Variance-stabilized signals (VSS) is a signal transformation approach used for eliminating the dependency of data variance from its mean. We generate VSS for sequencing-based genomic signals by learning the empirical relationship between the mean and variance of a given signal data set and producing transformed signals that normalize for this dependence. In the VSS pipeline, 
+
 
 
 <img src="https://github.com/faezeh-bayat/Variance-stabilized-units-for-sequencing-based-genomic-signals/blob/master/bin/VSS_general_schematic/VSS.png" width="800"/>
