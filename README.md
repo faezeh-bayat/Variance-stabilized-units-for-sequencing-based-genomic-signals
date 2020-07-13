@@ -1,6 +1,9 @@
 # Variance-stabilized units for sequencing-based genomic signals
 
-## Variance-stabilized signals (VSS) is a signal transformation approach used for eliminating the dependency of data variance from its mean. We generate VSS for sequencing-based genomic signals by learning the empirical relationship between the mean and variance of a given signal data set and producing transformed signals that normalize for this dependence. In the VSS pipeline, 
+## Variance-stabilized signals (VSS) is a signal transformation approach used for eliminating the dependency of data variance from its mean. We generate VSS for sequencing-based genomic signals by learning the empirical relationship between the mean and variance of a given signal data set and producing transformed signals that normalize for this dependence.
+## Two main steps in VSS pipeline:
+### 1:Identifying the mean-variance relationship
+### 2:Calculating variance-stabilized signals
 
 
 
