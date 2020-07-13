@@ -26,7 +26,7 @@ bedtools
 
 ## Installing VSS pipeline
 ```
-git clone https://github.com/guanjue/S3V2_IDEAS_ESMP.git
+git clone https://github.com/faezeh-bayat/Variance-stabilized-units-for-sequencing-based-genomic-signals.git
 ```
 
 
