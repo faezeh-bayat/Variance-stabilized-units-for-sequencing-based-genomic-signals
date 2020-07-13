@@ -32,7 +32,7 @@ git clone https://github.com/guanjue/S3V2_IDEAS_ESMP.git
 
 
 ## Inputs for VSS pipeline
-#### 1. Users want to build their own mean-variance relationship model
+#### 1. Users want to build their own mean-variance relationship model:
 ##### Two untransformed replicates should be provided for building the model. After the model is build, any untransformed signals can be provided to get the varinace-stabilized signals. All input signals can be in bedGraph, bigWig or bam format.
 
 ```
@@ -43,9 +43,16 @@ chromosomes_to_build_the_model="chr21"
 signals_to_be_variance_stabilized="rep1.bedGraph"
 chromosomes_to_be_stabilized="chr21"
 ```
-#### 2. Users want to use the default mean-variance relationship
+#### 2. Users want to use the default mean-variance relationship:
 ##### Only one untransformed signal that needs to be variance-stabilized should be provided. This input can also be in bedGraph, bigWig or bam format.
-
+```
+variance_stabilization_model="default"
+replicate1_signals_for_training_the_model="False"
+replicate2_signals_for_training_the_model="False"
+chromosomes_to_build_the_model="False"
+signals_to_be_variance_stabilized="rep1.bedGraph"
+chromosomes_to_be_stabilized="chr21"
+```
 ## Input file format
 ```
 chromA  chromStartA  chromEndA  dataValueA
