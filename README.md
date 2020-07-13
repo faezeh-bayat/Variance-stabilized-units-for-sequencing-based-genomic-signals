@@ -31,10 +31,20 @@ git clone https://github.com/guanjue/S3V2_IDEAS_ESMP.git
 
 
 
-#####################################################################################
+## Inputs for VSS pipeline
+#### 1. Users want to build their own mean-variance relationship model
+##### Two untransformed replicates should be provided for building the model. After the model is build, any untransformed signals can be provided to get the varinace-stabilized signals. All input signals can be in bedGraph, bigWig or bam format.
+#### 2. Users want to use the default mean-variance relationship
+##### Only one untransformed signal that needs to be variance-stabilized should be provided. This input can also be in bedGraph, bigWig or bam format.
 
-## Inputs for S3V2_IDEAS_ESMP
-#### (1) The input metadata list for S3norm
+## Input file format
+```
+chromA  chromStartA  chromEndA  dataValueA
+chromB  chromStartB  chromEndB  dataValueB
+```
+
+
+
 ##### It only needs one input metadata file which tells the pipeline where are input 
 files. An example of the metadata is in the "metadata.for_master_peak_calls.txt" file with 4 columns (columns are separated by tab):
 ##### 1st column: cell type name (!!!The cell type name should not have "." in it!!!)
