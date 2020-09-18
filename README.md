@@ -110,5 +110,5 @@ chmode +x VSS.sh
 ##################################################################################################
 
 #### You can accesee the "Variance-stabilized units for sequencing-based genomic signals" manuscript in:
-https://www.biorxiv.org/content/10.1101/2020.01.31.929174v1.full
+https://www.biorxiv.org/content/10.1101/2020.01.31.929174v2
 
