@@ -63,47 +63,27 @@ chromB  chromStartB  chromEndB  dataValueB
 #### VSS generates variance-stabilized signals. The output of the pipeline is a bedGraph format transformed signal.
 
 ## How to run VSS pipeline
-#### 1. Provide inputs in VSS.sh
+#### 1. Train the model
 ```
-### path to the input files
-input_directory="/absolute_path_of_the_users_input_files"
-### Indicate whether you want to build your own model("user_specified") or use the default model ("default")  
-variance_stabilization_model="user_specified" or "default"
-### Two input replicates for building the mean-varaince relationship model
-replicate1_signals_for_training_the_model="rep1.bedGraph" or "False" if the variance_stabilization_model is "default"
-replicate2_signals_for_training_the_model="rep2.bedGraph" or "False" if the variance_stabilization_model is "default"
-### Indicate which chromosomes you want to build the model on 
-chromosomes_to_build_the_model="chr21" or "False" if the variance_stabilization_model is "default". Chromosomes can also be in "all" format if user wants to build model for all chromosomes.
-###
-signals_to_be_variance_stabilized="rep1.bedGraph"
-### Indicate which chromosome of untransformed signals you want to transform
-chromosomes_to_be_stabilized="chr21" ###Chromosomes can also be in "all" format if user wants to get all chromosomes' variance-stabilized signals
-###
-Source_directory="/absolute_path_where_VSS_is_installed"
-
-module load r
-module load r/3.4.4
-module load bedtools/2.27.1
-
-cd "$Source_directory"
-cd "Source"
-Rscript VSS.R $input_directory \
-                $variance_stabilization_model \
-                $replicate1_signals_for_training_the_model \
-                $replicate2_signals_for_training_the_model \
-                $chromosomes_to_build_the_model \
-                $signals_to_be_variance_stabilized \
-                $chromosomes_to_be_stabilized \
-                $Source_directory
+Rscript VSS.R train rep1 <bed, bedGraph, bam, bigWig> rep2.bed <bed, bedGraph, bam, bigWig> outputtriandir
+               
+```
 
 ```
-#### 2. Run VSS.sh
-
+Rscript VSS.R train_tag \
+              tag_alignment_rep1 <bam> \
+              --fraglen1 <Fragment length for replicate 1>
+              tag_alignment_rep2 <bam> \
+              --fraglen2 <Fragment length for replicate 2> \
+              --chrsz <2-col chromosome sizes file> \
+              --gensz <hs, mm>
+              --signal <fc, pval, both> 
+              --outdir outputtriandir
+             
 ```
-chmode +x VSS.sh
-./VSS.sh
 
-```
+
+
 #### 3. Variance-stabilized signals will be saved in the output folder at user provided "$input_directory".
 
 
