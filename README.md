@@ -15,7 +15,7 @@ Having learned the mean-variance relationship, VSS can be generated using the va
 
 ## Prerequisites
 ```
-R (https://www.r-project.org/)
+R 4.0.2 (https://www.r-project.org/)
 R packages needed
 install.packages('bigmemory', 'data.table', 'argparse', 'pracma')
 
