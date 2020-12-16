@@ -17,8 +17,12 @@ Having learned the mean-variance relationship, VSS can be generated using the va
 ```
 R (https://www.r-project.org/)
 R packages needed
-install.packages('bigmemory')
-install.packages('pracma')
+install.packages('bigmemory', 'data.table', 'argparse', 'pracma')
+
+conda install -c macs2
+conda install -c bioconda ucsc-bedclip
+conda install -c bioconda ucsc-bedgraphtobigwig
+conda install -c bioconda ucsc-bigwigtobedgraph
 
 bedtools
 ######(https://bedtools.readthedocs.io/en/latest/content/installation.html)
@@ -29,43 +33,10 @@ bedtools
 git clone https://github.com/faezeh-bayat/Variance-stabilized-units-for-sequencing-based-genomic-signals.git
 ```
 
-
-
-## Inputs for VSS pipeline
-#### 1. Users want to build their own mean-variance relationship model:
-##### Two untransformed replicates should be provided for building the model. After the model is build, any untransformed signals can be provided to get the varinace-stabilized signals. All input signals can be in bedGraph, bigWig or bam format.
-
-```
-variance_stabilization_model="user_specified"
-replicate1_signals_for_training_the_model="rep1.bedGraph"
-replicate2_signals_for_training_the_model="rep2.bedGraph"
-chromosomes_to_build_the_model="chr21"
-signals_to_be_variance_stabilized="rep1.bedGraph"
-chromosomes_to_be_stabilized="chr21"
-```
-#### 2. Users want to use the default mean-variance relationship:
-##### Only one untransformed signal that needs to be variance-stabilized should be provided. This input can also be in bedGraph, bigWig or bam format.
-```
-variance_stabilization_model="default"
-replicate1_signals_for_training_the_model="False"
-replicate2_signals_for_training_the_model="False"
-chromosomes_to_build_the_model="False"
-signals_to_be_variance_stabilized="rep1.bedGraph"
-chromosomes_to_be_stabilized="chr21"
-```
-## Input file format
-```
-chromA  chromStartA  chromEndA  dataValueA
-chromB  chromStartB  chromEndB  dataValueB
-```
-
-## Output of VSS pipeline
-#### VSS generates variance-stabilized signals. The output of the pipeline is a bedGraph format transformed signal.
-
 ## How to run VSS pipeline
 #### 1. Train the model
 ```
-Rscript VSS.R train rep1 <bed, bedGraph, bam, bigWig> rep2.bed <bed, bedGraph, bam, bigWig> outputtriandir
+Rscript VSS.R train rep1 <bed, bedGraph, bam, bigWig> rep2.bed <bed, bedGraph, bam, bigWig> triandir
                
 ```
 
@@ -78,13 +49,16 @@ Rscript VSS.R train_tag \
               --chrsz <2-col chromosome sizes file> \
               --gensz <hs, mm>
               --signal <fc, pval, both> 
-              --outdir outputtriandir
+              --outdir triandir
              
 ```
+#### 1. Transform the signals
+```
+Rscript VSS.R transform rep1 <bed, bedGraph, bam, bigWig> outputtriandir traindir tranformdir
+               
+```
 
-
-
-#### 3. Variance-stabilized signals will be saved in the output folder at user provided "$input_directory".
+#### 3. Variance-stabilized signals will be saved in the tranformdir folder as "Variance_stabilized_signals.bed".
 
 
 ##################################################################################################
