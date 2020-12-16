@@ -2,9 +2,9 @@
 
 ## Variance-stabilized signals (VSS) is a signal transformation approach used for eliminating the dependency of data variance from its mean. We generate VSS for sequencing-based genomic signals by learning the empirical relationship between the mean and variance of a given signal data set and producing transformed signals that normalize for this dependence.
 ## Two main steps in VSS pipeline:
-### 1: Identifying the mean-variance relationship
+### 1: Training model: Identifying the mean-variance relationship
 There are two different options for this step. It either uses the user provided replicates to identify the mean-variance relationship or uses the default trained model. In the latter case, user just needs to provide the untransformed signals.
-### 2: Calculating variance-stabilized signals
+### 2: Transforming signals: Calculating variance-stabilized signals
 Having learned the mean-variance relationship, VSS can be generated using the variance-stabilizing transformation. 
 
 
