@@ -36,7 +36,7 @@ git clone https://github.com/faezeh-bayat/Variance-stabilized-units-for-sequenci
 ## How to run VSS pipeline
 #### 1. Train the model
 ```
-Rscript VSS.R train rep1 <bed, bedGraph, bam, bigWig> rep2.bed <bed, bedGraph, bam, bigWig> triandir
+Rscript VSS.R train rep1 <bed, bedGraph, bam, bigWig> rep2 <bed, bedGraph, bam, bigWig> triandir
                
 ```
 
@@ -53,10 +53,18 @@ Rscript VSS.R train_tag \
              
 ```
 #### 1. Transform the signals
+ 
 ```
-Rscript VSS.R transform rep1 <bed, bedGraph, bam, bigWig> outputtriandir traindir tranformdir
+Rscript VSS.R transform rep1 <bed, bedGraph, bam, bigWig> traindir tranformdir
                
 ```
+##### Tag alignment bam file
+```
+Rscript VSS.R transform_tag rep1 <bam> traindir tranformdir
+               
+```
+
+
 
 #### 3. Variance-stabilized signals will be saved in the tranformdir folder as "Variance_stabilized_signals.bed".
 
