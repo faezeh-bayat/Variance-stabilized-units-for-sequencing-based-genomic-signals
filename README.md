@@ -35,32 +35,52 @@ git clone https://github.com/faezeh-bayat/Variance-stabilized-units-for-sequenci
 
 ## How to run VSS pipeline
 #### 1. Train the model
+##### 1.1 Replicates in bed, bedGraph, bigWig format
 ```
-Rscript VSS.R train rep1 <bed, bedGraph, bam, bigWig> rep2 <bed, bedGraph, bam, bigWig> triandir
+Rscript VSS.R train rep1 <bed, bedGraph, bigWig> rep2 <bed, bedGraph, bigWig> triandir
                
 ```
 
+##### 1.2 Tag alignment bam file (Raw read)
+```
+Rscript VSS.R train_tag tag_alignment_rep1 <bam> tag_alignment_rep2 <bam> --signal "raw" --outdir triandir
+              
+         
+```
+##### 1.3 Tag alignment bam file (Fold enrichment and Pvalue)
 ```
 Rscript VSS.R train_tag \
               tag_alignment_rep1 <bam> \
-              --fraglen1 <Fragment length for replicate 1>
+              --fraglen1 <Fragment length for replicate 1> < No need if you choose "raw" signals as output > \
               tag_alignment_rep2 <bam> \
-              --fraglen2 <Fragment length for replicate 2> \
-              --chrsz <2-col chromosome sizes file> \
-              --gensz <hs, mm>
-              --signal <fc, pval, both> 
+              --fraglen2 <Fragment length for replicate 2> < No need if you choose "raw" signals as output > \
+              --chrsz <2-col chromosome sizes file> < No need if you choose "raw" signals as output > \
+              --gensz <hs, mm> < No need if you choose "raw" signals as output > \
+              --signal <fc, pval, raw, all> 
               --outdir triandir
-             
+         
 ```
-#### 1. Transform the signals
- 
+#### 2. Transform the signals
+##### 2.1 Replicates in bed, bedGraph, bigWig format
 ```
-Rscript VSS.R transform rep1 <bed, bedGraph, bam, bigWig> traindir tranformdir
+Rscript VSS.R transform rep1 <bed, bedGraph, bigWig> traindir tranformdir
                
 ```
-##### Tag alignment bam file
+##### 2.2 Tag alignment bam file (Raw read)
 ```
-Rscript VSS.R transform_tag rep1 <bam> traindir tranformdir
+Rscript VSS.R transform_tag rep1 < bam > --signal "raw" traindir tranformdir
+               
+```
+##### 2.3 Tag alignment bam file (Fold enrichment and Pvalue)
+```
+Rscript VSS.R transform_tag rep1 <bam> \
+                            tag_alignment_rep <bam> \
+                            --fraglen1 <Fragment length for replicate to be variance stabilized > < No need if you choose "raw" signals as output > \
+                            --chrsz <2-col chromosome sizes file> < No need if you choose "raw" signals as output > \
+                            --gensz <hs, mm> < No need if you choose "raw" signals as output > \
+                            --signal <fc, pval, raw, all> 
+                            --model_dir triandir
+                            --transdir tranformdir
                
 ```
 
