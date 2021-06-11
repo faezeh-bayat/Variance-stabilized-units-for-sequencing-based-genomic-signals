@@ -9,7 +9,7 @@ Having learned the mean-variance relationship, VSS can be generated using the va
 
 
 
-<img src="https://github.com/faezeh-bayat/Variance-stabilized-units-for-sequencing-based-genomic-signals/tree/master/bin/VSS_schematic.png" width="800"/>
+<img src="https://github.com/faezeh-bayat/Variance-stabilized-units-for-sequencing-based-genomic-signals/blob/master/bin/VSS_schematic.png" width="800"/>
 
 
 
