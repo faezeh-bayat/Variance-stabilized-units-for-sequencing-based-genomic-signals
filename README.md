@@ -35,14 +35,14 @@ bedtools (https://bedtools.readthedocs.io/en/latest/content/installation.html)
 
 ## Installing VSS pipeline
 ```
-git clone https://github.com/faezeh-bayat/VSS.git
+git clone https://github.com/faezeh-bayat/Variance-stabilized-units-for-sequencing-based-genomic-signals.git
 ```
 
 ## How to run VSS pipeline
 As mentioned before, VSS has two main steps: Traing a model and transforming the signals. Before traning and transforming signals, VSS pipeline loads the input replicates to convert all data formats to the compatible version used in the pipeline. 
 
 ```
-$ cd 'Source'
+$ cd VSS/Source
 ```
 
 #### 1. Load the data
@@ -152,5 +152,5 @@ Rscript VSS.R transform rep1.bam --signal "raw" --inputdir "inputdir" --traindir
 https://www.biorxiv.org/content/10.1101/2020.01.31.929174v2
 
 ## Troubleshooting
-Please contact me (fbayat@sfu.ca) if you face any errors. I will constantly update this document for errors reported by users.
+Please contact me at fbayat@sfu.ca if you face any errors. I will constantly update this document for errors reported by users.
 
