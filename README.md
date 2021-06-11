@@ -1,3 +1,4 @@
+(We have moved VSS to https://github.com/faezeh-bayat/VSS. Please see the latest changes in that repository as we will no longer update this repo.)
 # VSS: Variance-stabilized signals for sequencing-based genomic signals
 
 Variance-stabilized signals (VSS) is a signal transformation approach used for eliminating the dependency of data variance from its mean. We generate VSS for sequencing-based genomic signals by learning the empirical relationship between the mean and variance of a given signal data set and producing transformed signals that normalize for this dependence.
